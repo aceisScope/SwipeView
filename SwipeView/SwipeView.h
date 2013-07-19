@@ -94,6 +94,7 @@ SwipeViewAlignment;
 - (NSInteger)indexOfItemViewOrSubview:(UIView *)view;
 
 - (void)enableLoadingView;
+- (void)doneLoadingMorePageContents;
 
 @end
 
@@ -119,5 +120,7 @@ SwipeViewAlignment;
 - (void)swipeViewDidEndScrollingAnimation:(SwipeView *)swipeView;
 - (BOOL)swipeView:(SwipeView *)swipeView shouldSelectItemAtIndex:(NSInteger)index;
 - (void)swipeView:(SwipeView *)swipeView didSelectItemAtIndex:(NSInteger)index;
+
+- (void)swipeViewLoadingMore:(SwipeView*)swipeView;
 
 @end

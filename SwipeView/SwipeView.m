@@ -1047,6 +1047,9 @@
 {
     //here should be some real data loading
     _isLoading = YES;
+    if ([_delegate respondsToSelector:@selector(swipeViewLoadingMore:)]) {
+        [_delegate swipeViewLoadingMore:self];
+    }
 }
 
 - (void)doneLoadingMorePageContents
