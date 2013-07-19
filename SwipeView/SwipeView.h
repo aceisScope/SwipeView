@@ -41,7 +41,7 @@
 
 
 #import <UIKit/UIKit.h>
-
+#import "TailLoadingView.h"
 
 typedef enum
 {
@@ -80,6 +80,10 @@ SwipeViewAlignment;
 @property (nonatomic, assign) BOOL defersItemViewLoading;
 @property (nonatomic, assign, getter = isVertical) BOOL vertical;
 
+@property (nonatomic, readwrite) BOOL loadingViewEnabled;
+@property (nonatomic, readonly) BOOL isLoading;
+@property (nonatomic, strong) TailLoadingView *tailLoadingView;
+
 - (void)reloadData;
 - (void)reloadItemAtIndex:(NSInteger)index;
 - (void)scrollByNumberOfItems:(NSInteger)itemCount duration:(NSTimeInterval)duration;
@@ -88,6 +92,8 @@ SwipeViewAlignment;
 - (UIView *)itemViewAtIndex:(NSInteger)index;
 - (NSInteger)indexOfItemView:(UIView *)view;
 - (NSInteger)indexOfItemViewOrSubview:(UIView *)view;
+
+- (void)enableLoadingView;
 
 @end
 

@@ -65,7 +65,7 @@
 #import "SwipeView.h"
 
 
-@interface SwipeView () <UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface SwipeView () <UIScrollViewDelegate, UIGestureRecognizerDelegate, TailloadingDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableDictionary *itemViews;
@@ -82,6 +82,8 @@
 @property (nonatomic, assign) CGFloat endOffset;
 @property (nonatomic, assign) CGFloat lastUpdateOffset;
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic, readwrite) BOOL isLoading;
 
 @end
 
@@ -118,6 +120,8 @@
 	_scrollView.showsVerticalScrollIndicator = NO;
 	_scrollView.scrollsToTop = NO;
 	_scrollView.clipsToBounds = NO;
+    
+    _loadingViewEnabled = NO;
     
     _decelerationRate = _scrollView.decelerationRate;
     _itemViews = [[NSMutableDictionary alloc] init];
@@ -163,6 +167,7 @@
     [_scrollView ah_release];
     [_itemViews ah_release];
     [_itemViewPool ah_release];
+    [_tailLoadingView ah_release];
     [super ah_dealloc];
 }
 
@@ -923,6 +928,38 @@
                 [self loadViewAtIndex:[number integerValue]];
             }
         }
+        
+        //enable loading view
+        if (_loadingViewEnabled)
+        {
+            //remove loading view
+            if (([self currentPage] < [self numberOfPages] - 1) && _tailLoadingView)
+            {
+                [_tailLoadingView removeFromSuperview];
+            }
+            
+            //add loading view
+            if ([self currentPage] == [self numberOfPages] - 1)
+            {
+                if (_tailLoadingView.superview == nil) {
+                    
+                    if (_tailLoadingView == nil) {
+                        if (!_vertical) {
+                            _tailLoadingView = [[TailLoadingView alloc] initWithFrame:CGRectMake(_scrollView.contentSize.width, 0,  80, _scrollView.bounds.size.height)];
+                        }
+                        else{
+                            _tailLoadingView = [[TailLoadingView alloc] initWithFrame:CGRectMake(0, _scrollView.contentSize.height,  _scrollView.bounds.size.width, 60)];
+                            [_tailLoadingView setIsVertical:_vertical];
+                        }
+                        _tailLoadingView.delegate = self;
+                    }
+                    
+                    [_scrollView addSubview:_tailLoadingView];
+                    [_scrollView bringSubviewToFront:_tailLoadingView];
+                }
+            }
+        }
+
     }
 }
 
@@ -997,6 +1034,39 @@
         [self stopAnimation];
     }
 }
+
+#pragma mark -
+#pragma mark - Tail Loading
+- (void)enableLoadingView
+{
+    _loadingViewEnabled = YES;
+    _wrapEnabled = NO;
+}
+
+- (void)startLoadMorePageContents
+{
+    //here should be some real data loading
+    _isLoading = YES;
+}
+
+- (void)doneLoadingMorePageContents
+{
+    //real data loading done
+    _isLoading = NO;
+    [_tailLoadingView tailloadingScrollViewDataSourceDidFinishedLoading:_scrollView];
+}
+
+- (void)tailloadingDidTriggerLoad:(TailLoadingView *)view
+{
+    [self startLoadMorePageContents];
+    [self performSelector:@selector(doneLoadingMorePageContents) withObject:nil afterDelay:3.0];
+}
+
+- (BOOL)tailloadDataSourceIsLoading:(TailLoadingView *)view
+{
+    return _isLoading;
+}
+
 
 #pragma mark -
 #pragma mark Gestures and taps
@@ -1093,6 +1163,9 @@
     {
         _previousContentOffset = _scrollView.contentOffset;
     }
+    
+    if(_loadingViewEnabled)
+        [_tailLoadingView tailloadingScrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -1119,6 +1192,10 @@
     {
         [_delegate swipeViewDidEndDragging:self willDecelerate:decelerate];
     }
+    
+    if(_loadingViewEnabled)
+        [_tailLoadingView tailloadingScrollViewDidEndDragging:scrollView];
+
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView

@@ -54,6 +54,9 @@
     //configure page control
     _pageControl.numberOfPages = _swipeView.numberOfPages;
     _pageControl.defersCurrentPageDisplay = YES;
+    
+    //enable loading
+    [_swipeView enableLoadingView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

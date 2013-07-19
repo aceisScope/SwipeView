@@ -17,6 +17,7 @@
 		01FA7D39145B5FCC00D118DB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FA7D38145B5FCC00D118DB /* ViewController.m */; };
 		01FA7D3C145B5FCC00D118DB /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FA7D3A145B5FCC00D118DB /* ViewController.xib */; };
 		01FACD23166114E800B8C1A0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FACD22166114E800B8C1A0 /* Default-568h@2x.png */; };
+		047AA37617991BAC003D398E /* TailLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047AA37517991BAC003D398E /* TailLoadingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		01FA7D38145B5FCC00D118DB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		01FA7D3B145B5FCC00D118DB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		01FACD22166114E800B8C1A0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		047AA37417991BAC003D398E /* TailLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TailLoadingView.h; sourceTree = "<group>"; };
+		047AA37517991BAC003D398E /* TailLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TailLoadingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,8 @@
 		019466D915B3129800B9CA30 /* SwipeView */ = {
 			isa = PBXGroup;
 			children = (
+				047AA37417991BAC003D398E /* TailLoadingView.h */,
+				047AA37517991BAC003D398E /* TailLoadingView.m */,
 				019466DA15B3129800B9CA30 /* SwipeView.h */,
 				019466DB15B3129800B9CA30 /* SwipeView.m */,
 			);
@@ -182,6 +187,7 @@
 				01FA7D36145B5FCC00D118DB /* AppDelegate.m in Sources */,
 				01FA7D39145B5FCC00D118DB /* ViewController.m in Sources */,
 				019466DC15B3129800B9CA30 /* SwipeView.m in Sources */,
+				047AA37617991BAC003D398E /* TailLoadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
