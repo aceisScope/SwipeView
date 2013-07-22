@@ -84,7 +84,7 @@
             CGFloat offset = MAX((scrollView.contentSize.height - (scrollView.contentOffset.y + scrollView.frame.size.height))* -1, 0);
             offset = MAX(offset, 60);
             scrollView.contentInset = UIEdgeInsetsMake(0, 0.0f, offset, 0.0f);
-            scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + 6);
+            scrollView.contentOffset = CGPointMake(0, scrollView.contentSize.height - scrollView.frame.size.height + 60);
         }else{
             CGFloat offset = MAX((scrollView.contentSize.width - (scrollView.contentOffset.x + scrollView.frame.size.width))* -1, 0);
             offset = MAX(offset, 60);
